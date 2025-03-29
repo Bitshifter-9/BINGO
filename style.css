@@ -1,0 +1,270 @@
+body {
+  background: linear-gradient(45deg, #1a1a2e, #16213e);
+  font-family: "Poppins", sans-serif;
+  min-height: 100vh;
+  padding: 40px 20px;
+  color: #fff;
+  overflow-x: hidden;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 15px;
+  position: relative;
+}
+
+.title {
+  text-align: center;
+  color: #00ddeb;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 0 0 40px;
+  text-shadow: 0 0 10px rgba(0, 221, 235, 0.7);
+  animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 10px rgba(0, 221, 235, 0.7);
+  }
+  to {
+    text-shadow: 0 0 20px rgba(0, 221, 235, 0.9);
+  }
+}
+
+#instructions-btn {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 25px;
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  border-radius: 30px;
+  background: linear-gradient(45deg, #ff3366, #ff6b6b);
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+#instructions-btn:hover {
+  background: linear-gradient(45deg, #cc294f, #d65c5c);
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(255, 51, 102, 0.4);
+}
+
+.instructions {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 20px;
+  margin: 20px 0;
+  text-align: center;
+  animation: slideIn 0.5s ease;
+}
+
+.instructions.hidden {
+  display: none;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.game-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  justify-content: center;
+}
+
+.card-section {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  padding: 25px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.card-section:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+h2 {
+  color: #fff;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+#player-board,
+#computer-board {
+  grid-gap: 1px; /* Reduced from 2px to 1px */
+}
+
+.cell {
+  width: clamp(50px, 12vw, 70px);
+  height: clamp(50px, 12vw, 70px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.cell:hover:not(.marked):not(.marked-computer) {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+.marked {
+  background: linear-gradient(45deg, #00ff95, #00ddeb) !important;
+  color: #fff;
+  animation: markAnimation 0.5s ease, pulse 1.5s infinite;
+}
+
+.marked-computer {
+  background: linear-gradient(45deg, #ff3366, #ff6b6b) !important;
+  color: #fff;
+  animation: markAnimation 0.5s ease, pulse 1.5s infinite;
+}
+
+@keyframes markAnimation {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+  }
+}
+
+#player-turn {
+  padding: 12px 30px;
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  border-radius: 30px;
+  background: linear-gradient(45deg, #00ddeb, #00ff95);
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+}
+
+#player-turn:hover {
+  background: linear-gradient(45deg, #00b8c4, #00cc79);
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(0, 221, 235, 0.4);
+}
+
+#player-turn:disabled {
+  background: rgba(255, 255, 255, 0.1);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+#status {
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  margin: 15px 0;
+  font-weight: 500;
+  color: #ff3366;
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+p {
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+#computer-card-section {
+  display: none;
+}
+
+#player-bingo,
+#computer-bingo {
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+#player-bingo .crossed,
+#computer-bingo .crossed {
+  text-decoration: line-through;
+  color: rgba(255, 255, 255, 0.5);
+  animation: crossOut 0.5s ease;
+}
+
+@keyframes crossOut {
+  from {
+    text-decoration: none;
+    color: #fff;
+  }
+  to {
+    text-decoration: line-through;
+    color: rgba(255, 255, 255, 0.5);
+  }
+}
+
+.watermark {
+  text-align: center;
+  margin-top: 40px;
+  font-size: clamp(0.8rem, 2vw, 1rem);
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+@media (max-width: 768px) {
+  .game-wrapper {
+    grid-template-columns: 1fr;
+  }
+  .card-section {
+    width: 100%;
+    max-width: 450px;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 769px) {
+  #computer-card-section.show {
+    display: block;
+  }
+}
